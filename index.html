@@ -1,37 +1,187 @@
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Gaston</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Click & Get an Instruction</title>
+  <style>
+    /* ===== Theme variables: set your brand blue here ===== */
+    :root {
+      --bg-color: #0e1013;                     /* page background */
+      --text-color: #e8edf7;                   /* general text color */
+      --accent-blue: #3b82f6;                  /* BLUE for circles + instruction text */
+      --accent-blue-opaque: rgba(59,130,246,0.25); /* transparent version for circles */
+      --button-border: rgba(255,255,255,0.55); /* subtle button border */
+      --button-bg: rgba(255,255,255,0.08);     /* transparent button fill */
+      --button-bg-hover: rgba(255,255,255,0.14); /* on hover */
+      --button-text: #ffffff;
+    }
 
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <meta name="theme-color" content="#ffffff" />
+    /* ===== Page layout ===== */
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-color);
+      color: var(--text-color);
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      overflow: hidden; /* keeps circles from causing scrollbars */
+    }
 
-  <link rel="icon" href="favicon.ico" />
+    /* ===== Background circles (like your original JS version) ===== */
+    .bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--accent-blue-opaque); /* transparent blue */
+      filter: blur(12px);                    /* subtle glow */
+      /* You can adjust sizes/positions below to match your old version */
+    }
+    /* Example circle layout (tweak these to taste) */
+    .c1 { width: 220px; height: 220px; top: -40px; left: -40px; }
+    .c2 { width: 320px; height: 320px; bottom: -60px; right: -60px; }
+    .c3 { width: 180px; height: 180px; top: 20%; right: 10%; }
+    .c4 { width: 140px; height: 140px; bottom: 25%; left: 8%; }
+    /* If you want stronger/softer transparency, adjust rgba alpha above */
 
-  <!-- Google Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet" />
+    /* ===== Content container ===== */
+    .container {
+      position: relative;
+      z-index: 1;           /* above circles */
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      max-width: 640px;
+      width: 100%;
+      /* Keep the field transparent as requested */
+      background: transparent;
+    }
 
-  <link rel="stylesheet" href="style.css" />
+    /* ===== Title: larger ===== */
+    .title {
+      margin: 0 0 1rem 0;
+      font-weight: 700;
+      /* Bigger title */
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      line-height: 1.2;
+      letter-spacing: 0.2px;
+    }
+
+    /* ===== Button: transparent field (not white) ===== */
+    .big-button {
+      appearance: none;
+      border: 1px solid var(--button-border);
+      background: var(--button-bg);        /* transparent */
+      color: var(--button-text);
+      border-radius: 999px;
+      padding: 1.1rem 1.6rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      max-width: 360px;
+      transition: background 140ms ease, transform 140ms ease, box-shadow 140ms ease;
+      backdrop-filter: saturate(115%) blur(2px); /* slight glass look */
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    }
+    .big-button:hover {
+      background: var(--button-bg-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.30);
+    }
+    .big-button:active {
+      transform: translateY(0);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.28);
+    }
+
+    /* ===== Instruction text: blue (same as circles) ===== */
+    .result {
+      margin-top: 1.2rem;
+      font-size: 1.15rem;
+      line-height: 1.5;
+      min-height: 3rem;
+      color: var(--accent-blue); /* make the instruction text BLUE */
+      font-weight: 600;
+      text-shadow: 0 0 12px rgba(59,130,246,0.25); /* soft glow in same blue */
+    }
+
+    /* Optional helper text / footer (kept transparent) */
+    .footer {
+      margin-top: 1.8rem;
+      opacity: 0.75;
+      font-size: 0.95rem;
+    }
+  </style>
 </head>
-
 <body>
-  <div class="container">
-    <div class="background-pattern" id="background"></div>
-
-    <main>
-      <h1 class="title">Gaston</h1>
-
-      <button class="action-button" id="actionButton">
-        Speel!
-      </button>
-
-      <div class="phrase-display" id="phrase"></div>
-    </main>
+  <!-- Background circles (transparent blue) -->
+  <div class="bg" aria-hidden="true">
+    <div class="bg-circle c1"></div>
+    <div class="bg-circle c2"></div>
+    <div class="bg-circle c3"></div>
+    <div class="bg-circle c4"></div>
   </div>
 
-  <script src="script.js" defer></script>
+  <main class="container" role="main" aria-label="game container">
+    <h1 class="title">Klik & Ontvang een Instructie</h1>
+
+    <button class="big-button" id="actionButton" aria-label="Klik om een instructie te krijgen">
+      Klik hier
+    </button>
+
+    <div class="result" id="result" aria-live="polite"></div>
+
+    <!-- <div class="footer">Veel plezier!</div> -->
+  </main>
+
+  <script>
+    // Your instruction options (edit freely)
+    const INSTRUCTIES = [
+      "Doe 5 jumping jacks!",
+      "Vertel een grap aan de persoon naast je.",
+      "Maak een selfie met een gekke bek.",
+      "Complimenteer iemand in de kamer.",
+      "Neem 10 seconden om diep adem te halen.",
+      "Kies iemand die een dansmove toont.",
+      "Maak een dierengeluid (je keuze).",
+      "Wijs een willekeurig object aan en beschrijf het in 3 woorden.",
+      "Doe alsof je een robot bent voor 5 seconden.",
+      "Applaudisseer gedurende 3 seconden.",
+      "Kies één persoon die een high-five krijgt van iedereen.",
+      "Fluit (of doe een fluitgeluid) één korte melodie."
+    ];
+
+    const resultEl = document.getElementById('result');
+    const buttonEl = document.getElementById('actionButton');
+
+    function randomPick(arr) {
+      const idx = Math.floor(Math.random() * arr.length);
+      return arr[idx];
+    }
+
+    let lastPick = null;
+    function getInstruction() {
+      if (INSTRUCTIES.length <= 1) return INSTRUCTIES[0] || "";
+      let pick;
+      do { pick = randomPick(INSTRUCTIES); }
+      while (pick === lastPick);
+      lastPick = pick;
+      return pick;
+    }
+
+    buttonEl.addEventListener('click', () => {
+      const instruction = getInstruction();
+      resultEl.textContent = instruction;
+      if (navigator.vibrate) navigator.vibrate(10);
+    });
+  </script  </script>
 </body>
-</html>
