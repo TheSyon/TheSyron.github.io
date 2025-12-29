@@ -1,0 +1,79 @@
+/* Reset / base */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Layout */
+.container {
+  position: relative;
+  min-height: 100vh;
+}
+
+.background-pattern {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  grid-template-rows: repeat(20, 1fr);
+  z-index: 0;
+  pointer-events: none; /* mobile perf */
+}
+
+.circle {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+/* Main content */
+main {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+/* Logo */
+.title {
+  font-family: 'Satisfy', cursive;
+  font-size: clamp(4.5rem, 10vw, 7rem);
+  letter-spacing: 0.08em;
+  line-height: 1;
+  margin: 0;
+  will-change: transform; /* GPU hint */
+}
+
+/* Button */
+.action-button {
+  font-size: 1.5rem;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  touch-action: manipulation; /* faster taps */
+}
+
+/* Phrase */
+.phrase-display {
+  font-size: 2rem;
+  font-weight: 600;
+  min-height: 2.5rem; /* prevent layout jump */
+}
