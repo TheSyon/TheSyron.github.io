@@ -1,4 +1,3 @@
-
 /* Reset / base */
 * {
   box-sizing: border-box;
@@ -22,26 +21,29 @@ body {
   min-height: 100vh;
 }
 
-/* STEP 1: Background stays a background, no whitespace, 50% opacity */
-.background-pattern {
-  position: fixed;
-  inset: 0;                  /* shorthand for top/right/bottom/left: 0 */
-  z-index: 0;                /* behind content */
-  pointer-events: none;      /* never intercept clicks */
-  overflow: hidden;
 
+.background-pattern {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0;                    /* remove whitespace between circles */
-  padding: 0;                /* remove outer padding */
-  opacity: 0.5;              /* 50% transparency */
+  gap: 0;            /* Removed whitespace between circles */
+  padding: 0;        /* Removed outer padding */
+  opacity: 0.5;      /* Increased transparency to 50% */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  overflow: hidden;
 }
 
 .circle {
   width: 100%;
   aspect-ratio: 1;
   border-radius: 50%;
+  max-width  max-width: 100px;
   justify-self: center;
+
 }
 
 /* Main content */
