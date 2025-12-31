@@ -22,29 +22,19 @@ body {
 }
 
 
+
 .background-pattern {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: 0;            /* Removed whitespace between circles */
-  padding: 0;        /* Removed outer padding */
-  opacity: 0.5;      /* Increased transparency to 50% */
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 0;
-  overflow: hidden;
+  grid-auto-flow: dense;
+  grid-template-columns: repeat(auto-fill, 20px);
 }
 
 .circle {
-  width: 100%;
-  aspect-ratio: 1;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
-  max-width: 100px;
-  justify-self: center;
-
 }
+
 
 /* Main content */
 main {
