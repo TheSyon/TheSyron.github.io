@@ -40,6 +40,7 @@ function getCols() {
 /**
  * Render just enough circles to fill the viewport-sized grid.
  */
+
 function renderCircles() {
   const cols = getCols();
   const gap = getComputedNumber(background, '--circle-gap', 8);
@@ -50,29 +51,36 @@ function renderCircles() {
   const totalGapWidth = Math.max(0, cols - 1) * gap;
   const colWidth = (containerWidth - totalGapWidth) / cols;
 
+  // Each circle has aspect-ratio: 1 → height equals colWidth
   const rowStride = colWidth + gap;
   const rows = Math.ceil(containerHeight / rowStride);
 
   const needed = cols * rows;
   const current = background.childElementCount;
 
-  if (current === needed) return;
-
+  // 1) Adjust DOM count (add/remove) to match "needed"
   if (current > needed) {
     for (let i = current - 1; i >= needed; i--) {
       background.removeChild(background.lastChild);
     }
-  } else {
+  } else if (current < needed) {
     const fragment = document.createDocumentFragment();
     for (let i = current; i < needed; i++) {
       const div = document.createElement('div');
       div.className = 'circle';
-      div.style.backgroundColor = circleColors[i % circleColors.length];
       fragment.appendChild(div);
     }
     background.appendChild(fragment);
   }
-}
+
+  // 2) Ensure colors are assigned by COLUMN (not by item index),
+  //    and update colors whenever cols change.
+  const children = background.children;
+  for (let k = 0; k < children.length; k++) {
+    const col = k % cols; // row-major placement → column = index % cols
+    const color = circle    const color = circleColors[col % circleColors.length];
+    children[k].style.backgroundColor = color;
+  }
 
 // Initial render & dynamic updates
 window.addEventListener('load', renderCircles);
