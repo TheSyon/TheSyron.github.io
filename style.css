@@ -24,7 +24,7 @@ body {
 
 .background-pattern {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(8, 1fr);
   gap: 0;            /* Removed whitespace between circles */
   padding: 0;        /* Removed outer padding */
   opacity: 0.5;      /* Increased transparency to 50% */
