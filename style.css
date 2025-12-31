@@ -24,15 +24,17 @@ body {
 
 
 .background-pattern {
-  display: grid;
-  grid-auto-flow: dense;
-  grid-template-columns: repeat(auto-fill, 20px);
+display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16px, 1fr)); /* or min-content */
+  gap: 0;
 }
 
 .circle {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
+  width: 16px;       /* fixed */
+  height: 16px;      /* because aspect-ratio is now redundant */
+  border-radius:   border-radius: 50%;
+  justify-self: center;
+
 }
 
 
