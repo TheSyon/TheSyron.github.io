@@ -21,17 +21,24 @@ body {
   min-height: 100vh;
 }
 
+
+:root {
+  --circle-gap: 8px; /* whitespace between circles */
+  --cols: 6;         /* default columns on small screens */
+}
+
+@media (min-width: 480px) { :root { --cols: 8;  } }
+@media (min-width: 768px) { :root { --cols: 12; } }
+@media (min-width: 1024px){ :root { --cols: 16; } }
+
 .background-pattern {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: 0.2;            /* Removed whitespace between circles */
-  padding: 0;        /* Removed outer padding */
-  opacity: 0.5;      /* Increased transparency to 50% */
+  grid-template-columns: repeat(var(--cols), 1fr);
+  gap: var(--circle-gap);
+  padding: 0;
+  opacity: 0.5;
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   z-index: 0;
   overflow: hidden;
 }
@@ -40,9 +47,8 @@ body {
   width: 100%;
   aspect-ratio: 1;
   border-radius: 50%;
-  max-width: 100px;
   justify-self: center;
-
+   /* the JS will set backgroundColor; no need to set it here */
 }
 
 
