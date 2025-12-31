@@ -92,6 +92,7 @@ main {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   /* Smooth hover effect */
   transition: background-color 0.3s ease, transform 0.2s ease;
+  }
 .action-button:hover {
   background-color: #1D9A4E; /* green on hover */
   transform: scale(1.05); /* slight grow effect */
