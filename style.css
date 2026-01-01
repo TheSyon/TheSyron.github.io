@@ -74,11 +74,12 @@ main {
   line-height: 1;
   margin: 0;
   will-change: transform; /* GPU hint */
+  color: #25408f;
 }
 
 /* Button */
 .action-button {
-  font-family: 'Satisfy', cursive;
+  font-family: 'Segoe Script','Satisfy', 'Segoe Print', cursive;
   font-size: 1.75rem;
   padding: 1rem 2.5rem;
   border: none;
@@ -94,13 +95,13 @@ main {
   transition: background-color 0.3s ease, transform 0.2s ease;
   }
 .action-button:hover {
-  background-color: var(--hover-color, #1D9A4E); /* fallback = green */
+  background-color: var(--hover-color, #25408f); /* fallback = green */
   transform: scale(1.05);
 }
 
 /* Phrase */
 .phrase-display {
-  font-family: 'Satisfy', cursive;
+  font-family: 'Segoe Script','Satisfy', 'Segoe Print', cursive;
   font-size: 4rem;
   font-weight: 600;
   min-height: 2.5rem; /* prevent layout jump */
