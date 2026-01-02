@@ -70,7 +70,6 @@ main {
 .title {
   font-family: 'Segoe Script','Satisfy', 'Segoe Print', cursive;
   font-size: clamp(5.5rem, 20vw, 14rem);
-  letter-spacing: 0.08em;
   line-height: 1;
   margin: 0;
   will-change: transform; /* GPU hint */
@@ -100,7 +99,7 @@ main {
 
 /* Phrase */
 .phrase-display {
-  font-family: 'Segoe Script','Satisfy', 'Segoe Print', cursive;
+  font-family: 'Satisfy', 'Segoe Print', cursive;
   font-size: 4rem;
   font-weight: 600;
   min-height: 2.5rem; /* prevent layout jump */
